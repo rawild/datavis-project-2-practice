@@ -1,0 +1,239 @@
+
+
+
+
+body {
+    /* ref: https://fonts.google.com/specimen/Source+Sans+Pro?selection.family=Source+Sans+Pro */
+    font-family: 'Roboto', sans-serif;
+    padding: 1em 3em;
+    fill: #585c5e;
+    color: #585c5e;
+  }
+  p {
+    font-size: 12px;
+  }
+  a {
+    color: #585c5e;
+  }
+  .title {
+    font-family: 'Bree Serif', serif;
+    font-size: 76px;
+    margin-bottom: 5px;
+    color: #585c5e;
+  }
+
+  .tooltip {
+    display: block;
+    height: fit-content;
+    opacity: 0.9;
+    pointer-events: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    text-align: left;
+  }
+  
+  .container {
+      display: grid;
+      grid-template-columns: 275px 1fr;
+      grid-auto-rows: min-max(100px, auto);
+  }
+  .header {
+    grid-column-start: 1;
+    grid-column-end: span 2;
+    grid-row-start: 1;
+    grid-row-end: span 1;
+  }
+  .top-item-1 {
+    grid-column-start: 1;
+    grid-column-end: span 2;
+    grid-row-start: 2;
+    grid-row-end: span 1;
+  }
+  .top-item-2 {
+    grid-column-start: 2;
+    grid-column-end: span 1;
+    grid-row-start: 3;
+    grid-row-end: span 1;
+  }
+  .left-item{
+    grid-row-start: 4;
+    grid-row-end: span 2;
+  }
+  .middle-item {
+    grid-row-start: 4;
+    grid-row-end: span 1;
+  }
+  .bottom-item {
+    grid-row-start: 5;
+    grid-row-end: span 1;
+  }
+  .closing-item {
+    grid-column-start: 1;
+    grid-column-end: span 2;
+    grid-row-start: 6;
+    grid-row-end: span 1;
+  }
+  .header-1{
+    font-size: 32px;
+    font-family: 'Bree Serif', serif;
+  }
+  .header-2{
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 10px 0px 0px;
+  } 
+  .subHeader{
+     font-size: 14px;
+ }
+ .subTitle {
+     margin-left: 10px
+ }
+ .statsParagraph{
+     font-size: 16px;
+     padding: 10px 10px 10px 0px;
+ }
+ .purple {
+     color: #4c246b;
+ }
+ .green {
+     color: #2baa4f;
+ }
+ .yellow {
+     color: #ebca0f;
+ }
+ .red {
+     color: #900c00;
+ }
+ .top {
+     padding: 30px 
+ }
+ .bottomheader{
+     padding: 10px 20px;
+ }
+ .side-warning {
+    padding: 100px 0px;
+ }
+ .bottom-warning {
+     margin: 75px 75px;
+ }
+  .heavy {
+    fill: #364347;
+    font: bold 16px sans-serif;
+    cursor: pointer;
+  }
+  .tick {
+    fill: #364347;
+  }
+  .deleteButton {
+    fill: red;
+    font: bold 36px sans-serif;
+    cursor: pointer;
+  }
+  .deleteButtonDemo{
+    color: red;
+    font: bold 24px f;
+  }
+  .barHighlighted{
+    stroke: rgb(164, 245, 164);
+    stroke-width: 3;
+    fill-opacity: .3;   
+  }
+  .barClicked {
+    stroke: rgb(57, 97, 57);
+  }
+  .bar {
+      fill: #585c5e;
+  }
+  
+  .label {
+    color:#585c5e;
+    font-size: 14px;
+  }
+  .area {
+    fill: rgb(19, 82, 255)
+  }
+  .trend {
+    fill: none;
+    stroke:#585c5e;
+  }
+  .axis-label {
+    font-size: 14px;
+    fill: #585c5e;
+    text-anchor: middle;
+  }
+  .axis-bottom {
+      stroke:none;
+  }
+  .axis path,
+    .axis line {
+    fill: #364347;
+    stroke: none;
+    }
+    .selectLabel {
+        font-size: 20px;
+        font-weight: bold;
+    }
+  #bottom-content {
+     margin: 50px;
+     padding: 10px;
+  }
+  #candidate-box {
+      margin-left: 25px
+  }
+  .image-box {
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+    min-width: 150px;
+    min-height: 170px;
+    background-color: #585c5e;
+    border-radius: 15px;
+}
+  #addDropdown {
+    min-width: 170px;
+    margin-left: 25px;
+  }
+  #select {
+      margin-left: 50px;
+  }
+  #barlist {
+    margin: 50px 50px 0px 50px;
+  }
+  #methodology{
+      padding: 20px;
+  }
+
+
+/* scrolly step triggers*/
+
+
+  #scrolly {
+    position: relative;
+  }
+
+  article {
+    position: relative;
+    padding: 0 1rem;
+    margin: 0 auto;
+    width: 33%;
+  }
+
+  .step {
+    margin: 2rem auto 4rem auto;
+    background-color: #3b3b3b;
+    color: #fff;
+    height: 300px
+  }
+
+  .step.is-active {
+    background-color: goldenrod;
+    color: #3b3b3b;
+  }
+
+  .step p {
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.5rem;
+  }
