@@ -3,26 +3,74 @@
 <head lang='en'>
 	<meta charset='utf-8'>
 	<meta name='viewport' content='width=device-width'>
-	<title>rollup-starter-app</title>
+	<title>Who Pays NY</title>
 	<link rel="stylesheet" href="./css/global.css">
 	<style>
-		body {
-			font-family: 'Helvetica Neue', Arial, sans-serif;
-			color: #333;
-			font-weight: 300;
-		}
+	/**/
 	</style>
 </head>
 <body>
-	<h1>rollup-starter-app</h1>
+	<main>
+	<h1>Who Pays NY?</h1>
 	<p>The time is <span id='time-now'>...</span></p>
-	<section id="scrolly">
-		<article>
-		 <div class="step" data-step="a"></div>
-		 <div class="step" data-step="b"></div>
-		 <div class="step" data-step="c"></div>
-		</article>
-	  </section>
+		<section id="number-header">
+			<article></article>
+		</section>
+		<section id="top-donors">
+			<article></article>
+		</section>
+		<section id="donor-scrolly" class="scrolly">
+			<article>
+				<div class="step" data-step="1">
+					<p>STEP 1</p>
+				</div>
+				<div class="step" data-step="2">
+					<p>STEP 2</p>
+				</div>
+				<div class="step" data-step="3">
+					<p>STEP 3</p>
+				</div>
+				<div class="step" data-step="4">
+					<p>STEP 4</p>
+				</div>
+			</article>
+			<figure id="figure1">
+				<p>0</p>
+			</figure>
+		</section>
+		<section id="beneficiaries">
+			<article></article>
+		</section>
+		<section id="candidate-scrolly"  class="scrolly">
+			<article>
+				<div class="step" data-step="1">
+					<p>STEP 1</p>
+				</div>
+				<div class="step" data-step="2">
+					<p>STEP 2</p>
+				</div>
+			</article>
+			<figure id="figure2">
+				<p>0</p>
+			</figure>
+		</section>
+		<section id="corruption">
+			<article></article>
+		</section>
+		<section id="corrupt-scrolly"  class="scrolly">
+			<article>
+				<div class="step" data-step="1">
+					<p>STEP 1</p>
+				</div>
+				<div class="step" data-step="2">
+					<p>STEP 2</p>
+				</div>
+			</article>
+			<figure id="figure3">
+				<p>0</p>
+			</figure>
+		</section>
+	</main>
 	<script src='bundle.js'></script>
 </body>
 </html>
