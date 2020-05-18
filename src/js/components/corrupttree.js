@@ -26,94 +26,96 @@ export default class CorruptTree extends Component {
     render() {
         let self = this;
         self.element.selectAll("*").remove()
-        console.log("donorbubble rendering")
+        console.log("corrupt tree rendering")
         let width = self.element.node().getBoundingClientRect().width
-        let height = self.element.node().getBoundingClientRect().height-30
-        let donorName = store.state.donorNames.filter(d=>d.Cluster_ID == self.local.donor)[0].Name
-        let donations = store.state.topDonors.filter(d => d.Cluster_ID == self.local.donor)
+        let height = self.element.node().getBoundingClientRect().height-50
 
         /* Get the donor bar chart data*/ 
         self.element.append("div")
             .attr("class","header-2")
-            .text("Recipients of " + donorName)
-
-        let recipients = d3array.rollups(donations,  
-            v =>  ({Total: d3.sum(v, d => d.Total), donations:v}), // reduce function,
-            d => d.Candidate_ID)
+            .text("Cuomo's Health Care Donors")
         
-        let uniqueCandidates = [...new Set(donations.map(d => d.Candidate_ID))];
-        let colorScale = d3
-                .scaleOrdinal()
-                .domain(uniqueCandidates)
-                .range(d3.schemeCategory10);
+        
         let root = d3
-            .hierarchy([null, recipients], ([key, values]) => values) // children accessor, tell it to grab the second element
-            .sum(([key, values]) => values.Total) // sets the 'value' of each level
-            .sort((a, b) => b.value - a.value);
-        
-        
+            .hierarchy(store.state.cuomoDonors) // children accessor, tell it to grab the second element
+        let links = root.links()
+        let nodes = root.descendants()
+        console.log("links",links)
+        console.log("nodes",nodes)
+        const simulation = d3.forceSimulation(nodes)
+            .force("link", d3.forceLink(links).id(d => d.id).distance(150).strength(1))
+            .force("charge", d3.forceManyBody().strength(-200))
+            .force("x", d3.forceX())
+            .force("y", d3.forceY());
 
-        // make bubble map layout generator
-        const pack = d3
-        .pack()
-        .size([width, height])
-        .padding(1)
-        // call our generator on our root hierarchy node
-        pack(root); // creates our coordinates and dimensions based on the heirarchy and tiling algorithm
-
-        
         let svg = self.element
             .append("svg")
             .attr("width", width)
-            .attr("height", height);
+            .attr("height", height)
+            .attr("viewBox", [-width / 2, -height / 2, width, height]);
+        
 
-        // create g for each leaf
-        const leaf = svg
-            .selectAll("g")
-            .data(root.leaves())
-            .join("g")
-            .attr("transform", d => `translate(${d.x},${d.y})`);
+        let link = svg.append("g")
+            .attr("stroke", "#999")
+            .attr("stroke-opacity", 0.6)
+            .selectAll("line")
+                .data(links)
+                .join("line");
+        
+        const node = svg.append("g")
+            .attr("fill", "#fff")
+            .attr("stroke", "#000")
+            .attr("stroke-width", 2.5)
+            .selectAll("circle")
+                .data(nodes)
+                .join("circle")
+                    .attr("fill", d => d.children ? null : "#000")
+                    .attr("stroke", d => d.children ? null : "#fff")
+                    .attr("r", d => d.children ? 10 : d.data.total/1000)
+                    .call(drag(simulation));
 
-        leaf
-            .append("circle")
-            .attr("fill-opacity", 0.6)
-            .attr("fill", d => colorScale(d.data[1].donations[0].Candidate_ID)) // take the genre from the first one in the group
-            .attr("r", d => d.r)
-        leaf
-            .append("text")
-            .text(d => {
-                return (
-                    store.state.electeds.filter(x => x.Elected_Id == d.data[1].donations[0].Candidate_ID)[0].First_Name
-                    )
-                })
-            .attr("dy", "-1em")
-            .style("text-anchor", "middle")
-            .attr("font-family",  "Gill Sans", "Gill Sans MT")
-            .attr("font-size", "14")
-            .attr("fill", "white");
-        leaf
-            .append("text")
-            .text(d => {
-                return (
-                    store.state.electeds.filter(x => x.Elected_Id == d.data[1].donations[0].Candidate_ID)[0].Last_Name
-                    )
-                })
-            .style("text-anchor", "middle")
-            .attr("font-family",  "Gill Sans", "Gill Sans MT")
-            .attr("font-size", "14")
-            .attr("fill", "white");
-        leaf
-            .append("text")
-            .text(d => {
-                return "$" + self.local.format(d.data[1].Total)
-                })
-            .attr("dy", "1em")
-            .style("text-anchor", "middle")
-            .attr("font-family",  "Gill Sans", "Gill Sans MT")
-            .attr("font-size", "14")
-            .attr("fill", "white");
+        node.append("title")
+            .text(d => d.children ? d.data.name + " got $" + self.local.format(d.data.total):
+            d.data.name + " gave Cuomo $" + self.local.format(d.data.total));
+
+        simulation.on("tick", () => {
+            link
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+        
+            node
+                .attr("cx", d => d.x)
+                .attr("cy", d => d.y);
+        })
+        
+        function drag(simulation) {
+
+            function dragstarted(d) {
+            if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+            }
             
+            function dragged(d) {
+            d.fx = d3.event.x;
+            d.fy = d3.event.y;
+            }
+            
+            function dragended(d) {
+            if (!d3.event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+            }
+            
+            return d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended);
         }
     }
+}
+        
    
     

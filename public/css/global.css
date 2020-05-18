@@ -281,3 +281,8 @@ figure p {
   margin: 3rem auto 3rem auto;
   text-align: center;
 }
+
+#corruption {
+  width: 90%;
+  height: 500px;
+}

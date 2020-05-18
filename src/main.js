@@ -9,11 +9,13 @@ import CorruptScrolly from "./js/components/corruptscrolly.js"
 import SidePanel from "./js/components/sidepanel.js"
 import Beneficiaries from './js/components/beneficiaries.js'
 import CandidateBar from './js/components/candidatebar.js'
+import CorruptTree from './js/components/corrupttree.js';
 update();
 
 
 Promise.all(["./data/top_donor_filings.csv","./data/Electeds_List.csv","./data/donor_list.csv",
-"./data/top_money_candidate_filings.csv","./data/donors_summarized_2015_20.csv"
+"./data/top_money_candidate_filings.csv","./data/donors_summarized_2015_20.csv",
+"./data/cuomo_healthcare_donors.json"
 ]).then(function(files) {
     d3.csv(files[0], d3.autoType).then(topDonors => {
         //console.log("data", data);
@@ -27,7 +29,10 @@ Promise.all(["./data/top_donor_filings.csv","./data/Electeds_List.csv","./data/d
                     store.dispatch('addTopCandidates', topCandidates)
                     d3.csv(files[4], d3.autoType).then(donors => {
                         store.dispatch('addDonors', donors)
-                        init()
+                        d3.json(files[5], d3.autoType).then(cuomoDonors => {
+                            store.dispatch('addCuomoDonors', cuomoDonors)
+                            init()
+                        })
                     })
                 })
             })
@@ -60,7 +65,8 @@ function init() {
     let candidateBar = new CandidateBar()
     candidateBar.render()
     
-
+    let corruptTree = new CorruptTree()
+    corruptTree.render()
     
 }
 

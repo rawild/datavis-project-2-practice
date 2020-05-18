@@ -19,5 +19,9 @@ export default {
         state.donors= payload;
         return state;
     },
+    addCuomoDonors(state, payload){
+        state.cuomoDonors= payload;
+        return state;
+    },
 
 };

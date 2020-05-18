@@ -62,8 +62,8 @@ export default class CorruptScrolly extends Component {
         
 
 
-        /* helper function definitions 
-        *
+        /* 
+        * helper function definitions 
         *                                       */
         function handleResize() {
             // 1. update height of step elements
