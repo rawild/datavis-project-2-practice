@@ -1,8 +1,14 @@
 import Component from '../lib/component.js';
 import store from '../store/index.js';
+import DonorBar from './donorbar.js';
+import DonorBubble from './donorbubble.js';
+
+
 import * as d3 from 'd3';
 import scrollama from 'scrollama';
 import 'intersection-observer';
+
+
 
 export default class DonorScrolly extends Component {
     constructor() {
@@ -21,7 +27,7 @@ export default class DonorScrolly extends Component {
      * @returns {void}
      */
     render() {
-
+        console.log("donor-scrolly rendering")
         let self = this;
         var donorScrolly = self.element
         var figure = donorScrolly.select("figure");
@@ -39,11 +45,11 @@ export default class DonorScrolly extends Component {
         // 		this will also initialize trigger observations
         // 3. bind scrollama event handlers (this can be chained like below)
         scroller
-        .setup({
-            step: "#donor-scrolly article .step",
-            offset: 0.33,
-            debug: true
-        })
+            .setup({
+                step: "#donor-scrolly article .step",
+                offset: 0.33,
+                debug: true
+            })
         .onStepEnter(handleStepEnter);
 
             // setup resize event
@@ -66,6 +72,7 @@ export default class DonorScrolly extends Component {
                 scroller.resize();
             }
 
+            
             function handleStepEnter(response) {
                 console.log(response);
                 // response = { element, direction, index }
@@ -75,7 +82,19 @@ export default class DonorScrolly extends Component {
                     return i === response.index;
                 });
                 // update graphic based on step
-                figure.select("p").text(response.index + 1);
+                if (response.index == 0) {
+                    let donorBar = new DonorBar();
+                    donorBar.render()
+                } else if (response.index == 1){
+                    let donorBubble1 = new DonorBubble(948); // donor bubble for NYC Campaign Finance Board
+                    donorBubble1.render()
+                } else if (response.index == 2){
+                    let donorBubble2 = new DonorBubble(188); // donor bubble for NYC Campaign Finance Board
+                    donorBubble2.render()
+                } else if (response.index == 3){
+                    let donorBubble1 = new DonorBubble(196); // donor bubble for NYC Campaign Finance Board
+                    donorBubble1.render()
+                }
             }
             
             function setupStickyfill() {
@@ -83,6 +102,33 @@ export default class DonorScrolly extends Component {
                   Stickyfill.add(this);
                 });
               }
+
+
+            let scroller2 = scrollama()
+            scroller2
+                .setup({
+                    step: "#donor-scrolly article .baby-step",
+                    debug: true,
+                    offset: 0.15
+                })
+            .onStepEnter(handleBabyStepEnter)
+            .onStepExit(handleBabyStepExit);
+
+            function handleBabyStepEnter(response) {
+                console.log(response)
+                if (response.index == 0) {
+                    d3.select('#donor948')
+                        .classed("barHighlighted", true)
+                }
+            }
+            function handleBabyStepExit(response) {
+                console.log(response)
+                if (response.index == 0) {
+                    d3.select('#donor948')
+                        .classed("barHighlighted", false)
+                }
+            }
+
         }
 
     

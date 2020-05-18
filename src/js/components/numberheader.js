@@ -23,14 +23,15 @@ export default class NumberHeader extends Component {
         let self = this;
 
         self.element.append("div")
-            .attr("class","number top")
-            .text("$"+ self.local.format(store.state.summary.total_money))
-        self.element.append("div")
-            .attr("class","number top")
-            .text("from "+ self.local.format(store.state.summary.total_donors) + " donors")
+            .attr("class","number bottom")
+            .text("$"+ self.local.format(store.state.summary.total_money) +" from "+ self.local.format(store.state.summary.total_donors) + " donors")
         self.element.append("div")
             .attr("class","number bottom")
             .text("to "+store.state.summary.total_candidates + " candidates")
+        self.element.append("div")
+            .attr("class","number bottom")
+            .text("over 5 years")
+
 
     }
    

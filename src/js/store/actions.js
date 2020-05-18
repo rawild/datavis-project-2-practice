@@ -4,6 +4,9 @@ export default {
     },
     addElecteds(context, payload) {
         context.commit('addElecteds', payload);
+    },
+    addDonorNames(context, payload) {
+        context.commit('addDonorNames', payload)
     }
     
 };

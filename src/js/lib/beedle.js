@@ -112,8 +112,8 @@ export default class Store {
      */
     processCallbacks(data, key) {
         const self = this;
-        console.log("processing callbacks")
-        console.log("key", key)
+       // console.log("processing callbacks")
+       // console.log("key", key)
         if(!self.callbacks[key]) {
             return false;
         }

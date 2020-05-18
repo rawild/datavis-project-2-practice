@@ -6,6 +6,10 @@ export default {
     addElecteds(state, payload) {
         state.electeds = payload;
         return state;
+    },
+    addDonorNames(state, payload){
+        state.donorNames= payload;
+        return state;
     }
 
 };
