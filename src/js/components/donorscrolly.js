@@ -74,7 +74,7 @@ export default class DonorScrolly extends Component {
 
             
             function handleStepEnter(response) {
-                console.log(response);
+                //console.log(response);
                 // response = { element, direction, index }
         
                 // add color to current step only
@@ -115,7 +115,7 @@ export default class DonorScrolly extends Component {
             .onStepExit(handleBabyStepExit);
 
             function handleBabyStepEnter(response) {
-                console.log(response)
+                //console.log(response)
                 if (response.index == 0) {
                     d3.select('#donor948')
                         .classed("barHighlighted", true)
@@ -151,7 +151,7 @@ export default class DonorScrolly extends Component {
 
             }
             function handleBabyStepExit(response) {
-                console.log(response)
+                //console.log(response)
                 if (response.index == 0) {
                     d3.select('#donor948')
                         .classed("barHighlighted", false)

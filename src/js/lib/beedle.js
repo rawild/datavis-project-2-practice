@@ -133,8 +133,8 @@ export default class Store {
      */
     subscribe(callback, key) {
         const self = this;
-        console.log("subscribing")
-        console.log("key", key)
+        //console.log("subscribing")
+        //console.log("key", key)
         if(typeof callback !== 'function') {
             console.error('You can only subscribe to Store changes with a valid function');
             return false;

@@ -7,6 +7,9 @@ export default {
     },
     addDonorNames(context, payload) {
         context.commit('addDonorNames', payload)
+    },
+    addTopCandidates(context, payload){
+        context.commit('addTopCandidates', payload)
     }
     
 };

@@ -27,12 +27,11 @@ export default class DonorBubble extends Component {
         let self = this;
         self.element.selectAll("*").remove()
         console.log("donorbubble rendering")
-        console.log(self.local)
         let width = self.element.node().getBoundingClientRect().width
         let height = self.element.node().getBoundingClientRect().height-30
         let donorName = store.state.donorNames.filter(d=>d.Cluster_ID == self.local.donor)[0].Name
         let donations = store.state.topDonors.filter(d => d.Cluster_ID == self.local.donor)
-        console.log('donations', donations)
+
         /* Get the donor bar chart data*/ 
         self.element.append("div")
             .attr("class","header-2")
@@ -62,7 +61,6 @@ export default class DonorBubble extends Component {
         // call our generator on our root hierarchy node
         pack(root); // creates our coordinates and dimensions based on the heirarchy and tiling algorithm
 
-        console.log(root);
         
         let svg = self.element
             .append("svg")
