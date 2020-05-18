@@ -3,18 +3,18 @@ import store from '../store/index.js';
 import * as d3 from 'd3';
 import * as d3array from 'd3-array';
 
-export default class DonorBubble extends Component {
-    constructor(donor) {
+export default class DonorTree extends Component {
+    constructor(padding, id) {
         super({
             store,
-            element: d3.select("#figuredonor"),
-            key: "topDonors"
+            element: d3.select("#"+id),
+            key: "donors"
         });
         this.local = { 
             format: d3.format(",." + d3.precisionFixed(1) + "f"),
             paddingInner : 0.2,
-            margin : { top: 20, bottom: 20, left: 300, right:140 },
-            donor: donor,
+            margin : { top: 20, bottom: 20, left: 40, right:20 },
+            padding: padding
         }
     }
 
@@ -26,59 +26,68 @@ export default class DonorBubble extends Component {
     render() {
         let self = this;
         self.element.selectAll("*").remove()
-        console.log("donorbubble rendering")
-        let width = self.element.node().getBoundingClientRect().width
-        let height = self.element.node().getBoundingClientRect().height-30
-        let donorName = store.state.donorNames.filter(d=>d.Cluster_ID == self.local.donor)[0].Name
-        let donations = store.state.topDonors.filter(d => d.Cluster_ID == self.local.donor)
+        console.log("donortree rendering")
+        let width = self.element.node().getBoundingClientRect().width-self.local.margin.left-self.local.margin.right
+        let height = self.element.node().getBoundingClientRect().height-self.local.margin.top-self.local.margin.bottom
 
         /* Get the donor bar chart data*/ 
         self.element.append("div")
             .attr("class","header-2")
-            .text("Recipients of " + donorName)
+            .text(store.state.donors.length + " Donors")
 
-        let recipients = d3array.rollups(donations,  
+        let donors = d3array.rollups(store.state.donors,  
             v =>  ({Total: d3.sum(v, d => d.Total), donations:v}), // reduce function,
-            d => d.Candidate_ID)
+            d => d.Cluster_ID)
         
-        let uniqueCandidates = [...new Set(donations.map(d => d.Candidate_ID))];
-        let colorScale = d3
-                .scaleOrdinal()
-                .domain(uniqueCandidates)
-                .range(d3.schemeCategory10);
+        
         let root = d3
-            .hierarchy([null, recipients], ([key, values]) => values) // children accessor, tell it to grab the second element
+            .hierarchy([null, donors], ([key, values]) => values) // children accessor, tell it to grab the second element
             .sum(([key, values]) => values.Total) // sets the 'value' of each level
             .sort((a, b) => b.value - a.value);
         
-        
 
         // make bubble map layout generator
-        const pack = d3
-        .pack()
-        .size([width, height])
-        .padding(1)
-        // call our generator on our root hierarchy node
-        pack(root); // creates our coordinates and dimensions based on the heirarchy and tiling algorithm
+        let tree = d3
+            .treemap()
+            .size([width, height])
+            .padding(self.local.padding)
+            .round(true);
+        
+        tree(root); // creates our coordinates and dimensions based on the heirarchy and tiling algorithm
 
         
         let svg = self.element
             .append("svg")
             .attr("width", width)
-            .attr("height", height);
-
+            .attr("height", height)
+            .attr("class","tree");
         // create g for each leaf
         const leaf = svg
             .selectAll("g")
             .data(root.leaves())
             .join("g")
-            .attr("transform", d => `translate(${d.x},${d.y})`);
+            .attr("transform", d => `translate(${d.x0},${d.y0})`);
 
         leaf
-            .append("circle")
-            .attr("fill-opacity", 0.6)
-            .attr("fill", d => colorScale(d.data[1].donations[0].Candidate_ID)) // take the genre from the first one in the group
-            .attr("r", d => d.r)
+            .append("rect")
+            .attr("fill", "grey")
+            .attr("width", d => d.x1 - d.x0)
+            .attr("height", d => d.y1 - d.y0)
+            .attr("class", d=> {
+                if (d.value <= 40) {
+                    return "quartile-1"
+                }  
+                if (d.value >= 40 && d.value <= 100){
+                    return "quartile-2"
+                }
+                if (d.value > 100 && d.value <= 500){
+                    return "quartile-3"
+                }
+                if (d.value > 500) {
+                    return "quartile-4"
+                }
+            })
+        /* 
         leaf
             .append("text")
             .text(d => {
@@ -111,8 +120,21 @@ export default class DonorBubble extends Component {
             .style("text-anchor", "middle")
             .attr("font-family",  "Gill Sans", "Gill Sans MT")
             .attr("font-size", "14")
-            .attr("fill", "white");
+            .attr("fill", "white");*/
             
+        }
+
+        hide() {
+            let self = this
+            self.element.classed("unhidden", false)
+            self.element.classed("hidden", true)
+        }
+
+        unhide() {
+            let self = this
+            self.element.classed("hidden", false)
+            self.element.classed("unhidden", true)
+
         }
     }
    

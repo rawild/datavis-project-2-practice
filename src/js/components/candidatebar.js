@@ -7,7 +7,7 @@ export default class CandidateBar extends Component {
     constructor() {
         super({
             store,
-            element: d3.select("#figure2"),
+            element: d3.select("#figurecandidate"),
             key: "topCandidates"
         });
         this.local = { 
@@ -42,6 +42,9 @@ export default class CandidateBar extends Component {
         let electeds = store.state.electeds.filter(d => topIds.includes(d.Elected_Id))
         candidates = Array.from(candidates)
         candidates = candidates.sort((a,b) => d3.descending(a[1],b[1]))
+        electeds.sort(
+            (a,b) => d3.descending(candidates.filter(x => x[0] == a.Elected_Id)[0][1],
+            candidates.filter(x => x[0] == b.Elected_Id)[0][1]))
         let yScale = d3
             .scaleBand()
             .domain(electeds.map(d=>d.First_Name +" "+ d.Last_Name))

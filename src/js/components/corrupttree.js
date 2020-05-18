@@ -3,12 +3,12 @@ import store from '../store/index.js';
 import * as d3 from 'd3';
 import * as d3array from 'd3-array';
 
-export default class DonorBubble extends Component {
+export default class CorruptTree extends Component {
     constructor(donor) {
         super({
             store,
-            element: d3.select("#figuredonor"),
-            key: "topDonors"
+            element: d3.select("#corruption"),
+            key: "cuomoDonors"
         });
         this.local = { 
             format: d3.format(",." + d3.precisionFixed(1) + "f"),

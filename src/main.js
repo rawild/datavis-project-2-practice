@@ -13,7 +13,7 @@ update();
 
 
 Promise.all(["./data/top_donor_filings.csv","./data/Electeds_List.csv","./data/donor_list.csv",
-"./data/top_money_candidate_filings.csv"
+"./data/top_money_candidate_filings.csv","./data/donors_summarized_2015_20.csv"
 ]).then(function(files) {
     d3.csv(files[0], d3.autoType).then(topDonors => {
         //console.log("data", data);
@@ -25,7 +25,10 @@ Promise.all(["./data/top_donor_filings.csv","./data/Electeds_List.csv","./data/d
                 store.dispatch('addDonorNames', donorNames)
                 d3.csv(files[3], d3.autoType).then(topCandidates => {
                     store.dispatch('addTopCandidates', topCandidates)
-                    init()
+                    d3.csv(files[4], d3.autoType).then(donors => {
+                        store.dispatch('addDonors', donors)
+                        init()
+                    })
                 })
             })
             
@@ -38,10 +41,13 @@ function init() {
     let numberHeader = new NumberHeader()
     numberHeader.render()
 
+    let corruptScrolly = new CorruptScrolly()
+    corruptScrolly.render()
+    
     let donorScrolly=new DonorScrolly()
     donorScrolly.render()
     
-    let donorSide1 = new SidePanel(1)
+    let donorSide1 = new SidePanel('B1')
     donorSide1.render('The Biggest Donors', " There were eleven donors who gave more than $500,000 between \
     2015 and 2020. Some of them are surprising.")
 
@@ -55,7 +61,6 @@ function init() {
     candidateBar.render()
     
 
-    let corruptScrolly = new CorruptScrolly()
-    corruptScrolly.render()
+    
 }
 

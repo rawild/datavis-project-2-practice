@@ -7,7 +7,7 @@ export default class DonorBar extends Component {
     constructor() {
         super({
             store,
-            element: d3.select("#figure1"),
+            element: d3.select("#figuredonor"),
             key: "topDonors"
         });
         this.local = { 

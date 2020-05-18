@@ -10,6 +10,9 @@ export default {
     },
     addTopCandidates(context, payload){
         context.commit('addTopCandidates', payload)
-    }
+    },
+    addDonors(context, payload) {
+        context.commit('addDonors', payload)
+    },
     
 };

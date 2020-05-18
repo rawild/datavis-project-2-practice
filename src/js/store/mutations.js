@@ -14,6 +14,10 @@ export default {
     addTopCandidates(state, payload){
         state.topCandidates = payload;
         return state;
-    }
+    },
+    addDonors(state, payload){
+        state.donors= payload;
+        return state;
+    },
 
 };
