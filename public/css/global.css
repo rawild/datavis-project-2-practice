@@ -275,9 +275,9 @@ figure p {
 }
 
 .baby-step {
-  margin: 0 auto 2rem auto;
+  margin: 1rem auto 2rem auto;
   background-color: none;
-  min-height: 100px;
+  min-height: 125px;
 }
 
 .step p {

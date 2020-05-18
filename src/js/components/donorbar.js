@@ -37,8 +37,6 @@ export default class DonorBar extends Component {
             v =>  d3.sum(v, d => d.Total), // reduce function,
             d => d.Cluster_ID)
         let most = d3array.greatest(donors, ([,sum]) => sum)
-        console.log("most",most)
-        
         donors = Array.from(donors)
         donors = donors.sort((a,b) => d3.descending(a[1],b[1]))
         let yScale = d3
