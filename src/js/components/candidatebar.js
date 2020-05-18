@@ -8,7 +8,6 @@ export default class CandidateBar extends Component {
         super({
             store,
             element: d3.select("#figurecandidate"),
-            key: "topCandidates"
         });
         this.local = { 
             format: d3.format(",." + d3.precisionFixed(1) + "f"),

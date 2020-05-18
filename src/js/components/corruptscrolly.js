@@ -4,13 +4,13 @@ import * as d3 from 'd3';
 import scrollama from 'scrollama';
 import 'intersection-observer';
 import DonorTree from './donortree.js';
+import QuartileTree from './quartiletree.js';
 
 export default class CorruptScrolly extends Component {
     constructor() {
         super({
             store,
             element: d3.select('#corrupt-scrolly'),
-            key: "highlightPolitician"
         });
         this.local = { 
         }
@@ -42,7 +42,7 @@ export default class CorruptScrolly extends Component {
         scroller
         .setup({
             step: "#corrupt-scrolly article .step",
-            offset: 0.33,
+            offset: 0.4,
             debug: true
         })
         .onStepEnter(handleStepEnter)
@@ -54,12 +54,10 @@ export default class CorruptScrolly extends Component {
         donorTree.unhide()
         donorTree.render()
 
-        let donorTreeDense = new DonorTree(0,"donortreedense")
+        let donorTreeDense = new QuartileTree(0,"donortreedense")
         donorTreeDense.unhide()
         donorTreeDense.render()
-
         donorTreeDense.hide()
-        
 
 
         /* 
@@ -89,19 +87,28 @@ export default class CorruptScrolly extends Component {
             step.classed("is-active", function(d, i) {
                 return i === response.index;
             });
+
+            let totals = [{value: "less than $40", total: "$223,821"},
+            {value: "between $40 and $100", total: "$1,048,338"}, 
+            {value:"between $100 and $500", total:"$4,219,958"},
+            {value: "above $500", total:"98,515,179"}]
             // update graphic based on step
             if(response.index == 0){
                 donorTree.unhide()
                 donorTreeDense.hide()
+                d3.selectAll(".tree-title")
+                    .html(`$104,006,296 from 53,361 Donors`)
             }
             else if (response.index > 0){
                 donorTree.hide()
                 donorTreeDense.unhide()
+                d3.selectAll(".tree-title")
+                    .html(`The 25% of Donors who gave ${totals[response.index-1].value} account for ${totals[response.index-1].total}`)
                 d3.select("#donortreedense")
                     .selectAll("rect")
-                        .classed("hide-rect", true)
+                        .classed("show-rect", false)
                 d3.select("#donortreedense").selectAll(".quartile-"+response.index)
-                    .classed("hide-rect", false)
+                    .classed("show-rect", true)
             }
         }
         

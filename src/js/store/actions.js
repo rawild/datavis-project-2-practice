@@ -17,5 +17,8 @@ export default {
     addCuomoDonors(context, payload) {
         context.commit('addCuomoDonors', payload)
     },
+    addQuartiles(context,payload){
+        context.commit('addQuartiles', payload)
+    }
     
 };

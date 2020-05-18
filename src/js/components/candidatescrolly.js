@@ -9,7 +9,6 @@ export default class CandidateScrolly extends Component {
         super({
             store,
             element: d3.select('#candidate-scrolly'),
-            key: "highlightPolitician"
         });
         this.local = { 
         }
@@ -42,7 +41,7 @@ export default class CandidateScrolly extends Component {
         .setup({
             step: "#candidate-scrolly article .step",
             offset: 0.33,
-            debug: true
+            debug: false
         })
         .onStepEnter(handleStepEnter);
 

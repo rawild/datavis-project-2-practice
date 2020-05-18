@@ -24,13 +24,21 @@ export default class NumberHeader extends Component {
 
         self.element.append("div")
             .attr("class","number bottom")
-            .text("$"+ self.local.format(store.state.summary.total_money) +" from "+ self.local.format(store.state.summary.total_donors) + " donors")
+            .html(`<span class="big">$${self.local.format(store.state.summary.total_money)} </span> 
+            <div class="middle-text">
+                in <br> 
+                donations <br>
+                from </div> 
+            <span class="big"> ${self.local.format(store.state.summary.total_donors)} </span> 
+            <div class="end-text">donors</div>`
+            )
         self.element.append("div")
             .attr("class","number bottom")
-            .text("to "+store.state.summary.total_candidates + " candidates")
-        self.element.append("div")
-            .attr("class","number bottom")
-            .text("over 5 years")
+            .html(`<span class="bigger-end-text"> to </span> 
+            <span class="bigger">${store.state.summary.total_candidates} </span> 
+            <span class="bigger-middle-text">candidates <br>over</span>
+            <span class="bigger">5</span> 
+            <span class="bigger-end-text">years</span>`)
 
 
     }

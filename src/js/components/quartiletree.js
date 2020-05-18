@@ -3,7 +3,7 @@ import store from '../store/index.js';
 import * as d3 from 'd3';
 import * as d3array from 'd3-array';
 
-export default class DonorTree extends Component {
+export default class QuartileTree extends Component {
     constructor(padding, id) {
         super({
             store,
@@ -25,22 +25,22 @@ export default class DonorTree extends Component {
     render() {
         let self = this;
         self.element.selectAll("*").remove()
-        console.log("donortree rendering")
+        console.log("quartiletree rendering")
         let width = self.element.node().getBoundingClientRect().width-self.local.margin.left-self.local.margin.right
-        let height = self.element.node().getBoundingClientRect().height-self.local.margin.top-self.local.margin.bottom-15
+        let height = self.element.node().getBoundingClientRect().height-self.local.margin.top-self.local.margin.bottom-30
 
         /* Get the donor bar chart data*/ 
         self.element.append("div")
             .attr("class","header-2 chart-title tree-title")
             .text("$"+ self.local.format(store.state.summary.total_money) +" from " + self.local.format(store.state.donors.length) + " Donors")
 
-        let donors = d3array.rollups(store.state.donors,  
+        let quartiles = d3array.rollups(store.state.quartiles,  
             v =>  ({Total: d3.sum(v, d => d.Total), donations:v}), // reduce function,
-            d => d.Cluster_ID)
-        
+            d => d.Quartile)
+        console.log("quartiles",quartiles)
         
         let root = d3
-            .hierarchy([null, donors], ([key, values]) => values) // children accessor, tell it to grab the second element
+            .hierarchy([null, quartiles], ([key, values]) => values) // children accessor, tell it to grab the second element
             .sum(([key, values]) => values.Total) // sets the 'value' of each level
             .sort((a, b) => b.value - a.value);
         
@@ -72,16 +72,16 @@ export default class DonorTree extends Component {
             .attr("width", d => d.x1 - d.x0)
             .attr("height", d => d.y1 - d.y0)
             .attr("class", d=> {
-                if (d.value <= 40) {
+                if (d.value < 250000) {
                     return "quartile-1 donortree"
                 }  
-                if (d.value >= 40 && d.value <= 100){
+                if (d.value >= 250000 && d.value <= 1500000){
                     return "quartile-2 donortree"
                 }
-                if (d.value > 100 && d.value <= 500){
+                if (d.value > 1500000 && d.value <= 5000000){
                     return "quartile-3 donortree"
                 }
-                if (d.value > 500) {
+                if (d.value > 5000000) {
                     return "quartile-4 donortree"
                 }
             })

@@ -22,9 +22,10 @@ export default class SidePanel extends Component {
         let self = this;
         //console.log(self.element)
         self.element.insert("div", ":first-child")
+            .attr("class","side-panel")
             .text(body)
         self.element.insert("div",":first-child")
-            .attr("class","header-2")
+            .attr("class","header-2 article-title")
             .text(header)
         
     }

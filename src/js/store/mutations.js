@@ -23,5 +23,9 @@ export default {
         state.cuomoDonors= payload;
         return state;
     },
+    addQuartiles(state, payload){
+        state.quartiles= payload;
+        return state;
+    },
 
 };

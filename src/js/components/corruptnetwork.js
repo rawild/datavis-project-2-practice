@@ -3,12 +3,11 @@ import store from '../store/index.js';
 import * as d3 from 'd3';
 import * as d3array from 'd3-array';
 
-export default class CorruptTree extends Component {
+export default class CorruptNetwork extends Component {
     constructor(donor) {
         super({
             store,
             element: d3.select("#corruption"),
-            key: "cuomoDonors"
         });
         this.local = { 
             format: d3.format(",." + d3.precisionFixed(1) + "f"),
@@ -40,8 +39,6 @@ export default class CorruptTree extends Component {
             .hierarchy(store.state.cuomoDonors) // children accessor, tell it to grab the second element
         let links = root.links()
         let nodes = root.descendants()
-        console.log("links",links)
-        console.log("nodes",nodes)
         const simulation = d3.forceSimulation(nodes)
             .force("link", d3.forceLink(links).id(d => d.id).distance(150).strength(1))
             .force("charge", d3.forceManyBody().strength(-200))

@@ -8,7 +8,6 @@ export default class DonorBubble extends Component {
         super({
             store,
             element: d3.select("#figuredonor"),
-            key: "topDonors"
         });
         this.local = { 
             format: d3.format(",." + d3.precisionFixed(1) + "f"),
