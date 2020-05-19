@@ -13,7 +13,6 @@ import NumberHeader from "./js/components/numberheader1.js"
 import DonorScrolly from "./js/components/donorscrolly.js"
 import CandidateScrolly from "./js/components/candidatescrolly.js"
 import CorruptScrolly from "./js/components/corruptscrolly.js"
-import SidePanel from "./js/components/sidepanel.js"
 import SectionHeader from './js/components/sectionheader.js'
 import CandidateBar from './js/components/candidatebar.js'
 import CorruptNetwork from './js/components/corruptnetwork.js';
