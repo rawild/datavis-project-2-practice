@@ -31,7 +31,7 @@ export default class CandidateBar extends Component {
         /* Get the donor bar chart data*/ 
         self.element.append("div")
             .attr("class","header-2 chart-title")
-            .text("Candidates who recieved more than $1,500,000")
+            .text("Politicians who recieved more than $1,500,000")
 
         let candidates = d3array.rollup(topCandidates,  
             v =>  d3.sum(v, d => d.Total), // reduce function,
@@ -69,7 +69,7 @@ export default class CandidateBar extends Component {
                 enter =>
                     enter
                     .append("g")
-                    .attr("class", "bar")
+                    .attr("class", "bar barPol")
                     .call(enter => enter.append("rect"))
                     .call(enter => enter.append("text")),
                     
@@ -95,7 +95,7 @@ export default class CandidateBar extends Component {
         bars
             .select("text")
             .attr("class","label")
-            .attr("dy", yScale.bandwidth()/2+2)
+            .attr("dy", yScale.bandwidth()/2+4)
             .attr("x", d=>xScale(d[1])-xScale(0)+10)
             .text(d => `$${self.local.format(d[1])}`)
         

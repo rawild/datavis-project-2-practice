@@ -95,17 +95,17 @@ export default class DonorBubble extends Component {
             .attr("fill", "white");
         leaf
             .append("text")
-            .text(d => {
+            .html(d => {
                 if (d.r < 35) {
                     return " "
                 }
                 return (
-                    store.state.electeds.filter(x => x.Elected_Id == d.data[1].donations[0].Candidate_ID)[0].Last_Name
+                    `${store.state.electeds.filter(x => x.Elected_Id == d.data[1].donations[0].Candidate_ID)[0].Last_Name}`
                     )
                 })
             .style("text-anchor", "middle")
             .attr("font-family",  "Gill Sans", "Gill Sans MT")
-            .attr("font-size", "14")
+            .attr("font-size" ,d => d.data[1].donations[0].Candidate_ID==26 ? "10":"14")
             .attr("fill", "white");
         leaf
             .append("text")

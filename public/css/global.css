@@ -28,7 +28,7 @@ section {
     margin: auto;
     color: #585c5e;
     width: 90%;
-    padding-top: 13%
+    padding-top: 22%
 
   }
   .text {
@@ -40,9 +40,10 @@ section {
     height: fit-content;
     opacity: 0.9;
     pointer-events: none;
-    padding: 10px 15px;
+    padding-top: 15px;
     border-radius: 10px;
     text-align: left;
+    min-height: 20px;
   }
   
   .header-1{
@@ -54,6 +55,10 @@ section {
     font-weight: bold;
     padding: 10px 10px 0px 0px;
   } 
+  .header-3{
+    font-weight: bold;
+    padding: 10px 10px 0px 0px;
+  } 
   .subHeader{
      font-size: 14px;
  }
@@ -61,6 +66,8 @@ section {
      padding-top: 5px;
      font-size: 24px;
  }
+
+ /* Number Header */
  .big {
    font-size: 72px;
    font-weight: bold;
@@ -85,9 +92,89 @@ section {
   line-height: 3.5rem;
   margin: 0 1rem;
  }
+ #number-header {
+  margin: 2rem auto 3rem auto;
+  width: 80%;
+
+}
+.number {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+.bottom {
+  width: 100%;
+}
+
+/* Charts */
  .chart-title{
    margin: 5px 30px;
  }
+
+ .donortree {
+  fill: #103160;
+}
+.bar {
+  fill: #585c5e;
+}
+ .barHighlighted{
+  stroke: #2580ff;
+  stroke-width: 3;
+  fill: #2580ff;
+}
+.show-rect {
+  fill: #2580ff;
+}
+.barPolHighlight{
+  stroke: #E25822;
+  stroke-width: 3;
+  fill: #E25822;
+}
+
+ .tick {
+  fill: #364347;
+}
+.tick-donors{
+  font: bold 12px sans-serif;
+}
+.axis-label {
+  font-size: 14px;
+  fill: #585c5e;
+  text-anchor: middle;
+}
+.axis-bottom {
+    stroke:none;
+}
+.axis path,
+.axis line {
+fill: #364347;
+stroke: none;
+}
+
+.tree {
+  margin-left: 30px
+}
+
+
+.hidden {
+  display: none;
+  position: absolute;
+  z-index: -1;
+}
+.unhidden {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+}
+
+
+#corruption {
+  width: 90%;
+  height: 800px;
+}
+
+/* Side Panel */
+
  .article-title{
    margin: 10px 10px;
    font-size: 24px;
@@ -96,39 +183,30 @@ section {
   margin-top: 200px;
  }
  .donor-side {
+   margin-top: 5px;
    margin-bottom: 5px;
+ }
+ .candidate-side {
+  margin-top:5px;
+  margin-bottom: 0px;
  }
  .side-panel{
    margin: 40px 10px 20px 10px;
  }
-  .tick {
-    fill: #364347;
-  }
-  .barHighlighted{
-    stroke: #2580ff;
-    stroke-width: 3;
-    fill: #2580ff;
-  }
-  .bar {
-      fill: #585c5e;
-  }
-  .axis-label {
-    font-size: 14px;
-    fill: #585c5e;
-    text-anchor: middle;
-  }
-  .axis-bottom {
-      stroke:none;
-  }
-  .axis path,
-    .axis line {
-    fill: #364347;
-    stroke: none;
-    }
-
+ .donor {
+  min-height: 650px;
+}
+.long {
+  min-height: 800px;
+}
+.candidate {
+  max-height: 350px
+}
+.candidate-body {
+  margin: 20px 10px 20px 10px;
+}
 
 /* scrolly step triggers*/
-
 
 .scrolly {
   position: relative;
@@ -184,6 +262,9 @@ figure p {
   color: #fff;
 }
 
+.step a{
+  color: #fff;
+}
 .step:last-child {
   margin-bottom: 0;
 }
@@ -191,11 +272,14 @@ figure p {
 .step.is-active {
   color:#585c5e;
 }
+.step.is-active a {
+  color:#585c5e;
+}
 
 .baby-step {
   margin: 1rem auto 1rem auto;
   background-color: none;
-  min-height: 105px;
+  min-height: 200px;
 }
 
 .step p {
@@ -203,58 +287,8 @@ figure p {
   padding: 1rem;
   font-size: 1.5rem;
 }
-.donor {
-  min-height: 650px;
-}
-.long {
-  min-height: 800px;
-}
-.number {
-  display: inline-flex;
-  flex-wrap: wrap;
 
-}
-
-.bottom {
-  width: 100%;
-}
-
-.tree {
-  margin-left: 30px
-}
-
-.donortree {
-  fill: #103160;
-}
-.show-rect {
-  fill: #2580ff;
-}
-.hidden {
-  display: none;
-  position: absolute;
-  z-index: -1;
-}
-.unhidden {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: 0;
-}
-.tick-donors{
-  font: bold 12px sans-serif;
-}
-#number-header {
-  margin: 2rem auto 3rem auto;
-  width: 80%;
-
-}
-
-#corruption {
-  width: 90%;
-  height: 800px;
-}
-
-#methodology{
-  padding: 20px;
+#corruption{
+  max-height: 600px
 }
 

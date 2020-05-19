@@ -26,7 +26,7 @@ export default class SectionHeader extends Component {
         let header = new Header(div)
         header.render(headertext)
         self.element.append("div")
-            .text(text)
+            .html(`${text}`)
     }
    
     

@@ -18,11 +18,11 @@ export default class SidePanel extends Component {
      *
      * @returns {void}
      */
-    render(header, body, titleClass) {
+    render(header, body, titleClass, bodyClass) {
         let self = this;
         //console.log(self.element)
         self.element.insert("div", ":first-child")
-            .attr("class","side-panel")
+            .attr("class","side-panel "+bodyClass)
             .html(`${body}`)
         self.element.insert("div",":first-child")
             .attr("class","header-2 article-title "+titleClass)

@@ -47,7 +47,7 @@ export default class DonorScrolly extends Component {
             .setup({
                 step: "#donor-scrolly article .step",
                 offset: 0.25,
-                debug: true
+                debug: false
             })
         .onStepEnter(handleStepEnter);
 
@@ -107,7 +107,7 @@ export default class DonorScrolly extends Component {
             scroller2
                 .setup({
                     step: "#donor-scrolly article .baby-step",
-                    debug: true,
+                    debug: false,
                     offset: 0.33
                 })
             .onStepEnter(handleBabyStepEnter)

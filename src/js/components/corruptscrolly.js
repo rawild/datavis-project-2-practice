@@ -98,10 +98,12 @@ export default class CorruptScrolly extends Component {
             "corrupt-side")
         
         let corruptSide6 = new SidePanel('A6')
-            corruptSide6.render("The top 1%: $52,004,298","This is the total sum of the donations by \
-            the 429 donors that gave over $46,250.  Who are the 429? Most of them are organizations. Some of\
-            them represent working people, but many of the represent wealthy people who want to increase or protect their wealth.\
-            These 429, while only 1% of the donors, account for 50% of the money.",
+            corruptSide6.render("The Top 1%: $52,004,298","429 Donors accounted for $52,004,298. All 429 of these donors\
+            gave over $46,250.  Who are the 429? Most of them are organizations. Some of\
+            them represent working people, but many of them represent wealthy people who want to increase or protect their wealth.\
+            These 429, while only 0.8% of the donors, account for 50% of the money. It is worth noting that individuals with means\
+            often donate in diffuse ways through many different PAC's and LLC's, while individuals without a lot of extra money donate\
+            via concetrated groups, like their Union.",
             "corrupt-side")
 
 
