@@ -14,7 +14,7 @@ import DonorScrolly from "./js/components/donorscrolly.js"
 import CandidateScrolly from "./js/components/candidatescrolly.js"
 import CorruptScrolly from "./js/components/corruptscrolly.js"
 import SidePanel from "./js/components/sidepanel.js"
-import Beneficiaries from './js/components/beneficiaries.js'
+import SectionHeader from './js/components/sectionheader.js'
 import CandidateBar from './js/components/candidatebar.js'
 import CorruptNetwork from './js/components/corruptnetwork.js';
 
@@ -41,12 +41,16 @@ function init() {
     let corruptScrolly = new CorruptScrolly()
     corruptScrolly.render()
     
+    let biggestdonors = new SectionHeader("biggestdonors")
+    biggestdonors.render("Who Pays Thousands of $$$?", "The vast majority of the money comes from people with more than $500\
+    to throw around. What about those top 1%-ers? Who are those 429 donors? Who do they represent? What do they want?")
+    
     let donorScrolly=new DonorScrolly()
     donorScrolly.render()
     
     
-    let beneficiaries = new Beneficiaries()
-    beneficiaries.render()
+    let beneficiaries = new SectionHeader("beneficiaries")
+    beneficiaries.render("Who Benefits?", "$100 million is a lot of money. Where is it going? Who has \"earned\" it?")
 
     let candidateScrolly = new CandidateScrolly()
     candidateScrolly.render()

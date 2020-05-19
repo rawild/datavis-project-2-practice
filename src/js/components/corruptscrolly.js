@@ -57,7 +57,7 @@ export default class CorruptScrolly extends Component {
 
         let donorTreeDense = new QuartileTree(0,"donortreedense")
         donorTreeDense.unhide()
-        donorTreeDense.render()
+        donorTreeDense.render([])
         donorTreeDense.hide()
 
 
@@ -67,31 +67,41 @@ export default class CorruptScrolly extends Component {
             The bigger boxes are the donors who gave the most. \
             As you can see, some donors gave a lot more money than others.\
             In fact many of the smallest boxes are so small you can\'t see them. Over\
-            a half of the donors are not visible here becuse they are so small.", "corrupt-side")
+            a half of the donors are not visible here becuse they are so small. The total distribution of donations\
+            is similar to the total distribution of wealth in the city, with an extremely high concentration in the\
+            top 1%.", "corrupt-side")
 
         let corruptSide2 = new SidePanel('A2')
             corruptSide2.render("The smallest quarter: $223,821","This is the total sum of the donations by \
             the twenty-five percent of donors who gave less than $40. \
-            As you can see, even though it is over 13,300 donors, it is not a lot of money compared to \
-            the total.","corrupt-side")
+            As you can see, even though it is 13,340 donors, it is not a lot of money compared to \
+            the total. In all it adds up to about 0.2%.","corrupt-side")
 
         let corruptSide3 = new SidePanel('A3')
             corruptSide3.render("The low-middle quarter: $1,048,338","This is the total sum of the donations by \
             the twenty-five percent of donors who gave between $40 and $100 dollars. \
-            As you can see, even though it is over 13,300 donors, it is not a lot of money compared to \
-            the total.","corrupt-side")
+            These 13,340 donors contributed about 1% of the total.","corrupt-side")
 
         let corruptSide4 = new SidePanel('A4')
             corruptSide4.render("The upper-middle quarter: $4,219,958","This is the total sum of the donations by \
             the twenty-five percent of donors who gave between $100 and $500 dollars. \
             These are the donors who gave a total donation amount that was between 50% and 75% of the largest donations. \
-            It still accounts for a fairly amount over all.","corrupt-side")
+            It still accounts for a fairly small amount over all, about 4%.","corrupt-side")
 
         let corruptSide5 = new SidePanel('A5')
             corruptSide5.render("The top quarter of donors: $98,515,179","This is the total sum of the donations by \
             the twenty-five percent of donors who gave over $500 dollars. \
-            These donors, while only a fraction of the overall donations, account for the vast majority of the donations.\
-            In fact the money from the biggest 429 donors is equal to all of the money that the other 52,932 donors gave.",
+            These donors, while only a quarter of the overall donations, account for the vast majority of the donations.\
+            In total they contributed about 95% of the money.<br><br> I don't know about you but I don't have $500 to throw around\
+            to random politicians. A lot of these donations are small businesses in politician's districts, and people with\
+            lots of money: doctors, lawyers, landlords, finance industry people, and c-level executives of organizations.",
+            "corrupt-side")
+        
+        let corruptSide6 = new SidePanel('A6')
+            corruptSide6.render("The top 1%: $52,004,298","This is the total sum of the donations by \
+            the 429 donors that gave over $46,250.  Who are the 429? Most of them are organizations. Some of\
+            them represent working people, but many of the represent wealthy people who want to increase or protect their wealth.\
+            These 429, while only 1% of the donors, account for 50% of the money.",
             "corrupt-side")
 
 
@@ -134,17 +144,28 @@ export default class CorruptScrolly extends Component {
                 d3.selectAll(".tree-title")
                     .html(`$104,006,296 from 53,361 Donors`)
             }
-            else if (response.index > 0){
+            else if (response.index > 0 && response.index < 5){
                 donorTree.hide()
                 donorTreeDense.unhide()
+                donorTreeDense.render([])
                 d3.selectAll(".tree-title")
-                    .html(`The 25% of Donors who gave ${totals[response.index-1].value} account for ${totals[response.index-1].total}`)
+                    .html(`25% of the Donors gave ${totals[response.index-1].value}. They account for ${totals[response.index-1].total}.`)
                 d3.select("#donortreedense")
                     .selectAll("rect")
                         .classed("show-rect", false)
                 d3.select("#donortreedense").selectAll(".quartile-"+response.index)
                     .classed("show-rect", true)
+
+            } else if (response.index == 5){
+                let halves = [{Quartile: "top-half", Total: 52004298},{Quartile: "bottom-half", Total: 52001998}]
+                donorTreeDense.render(halves)
+                d3.selectAll(".tree-title")
+                    .html(`429 Donors account for 50% of the money.`)
+                
+                d3.select("#donortreedense").selectAll(".top-half")
+                    .classed("show-rect", true)
             }
+
         }
         
         

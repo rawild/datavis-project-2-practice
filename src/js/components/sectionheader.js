@@ -4,11 +4,11 @@ import * as d3 from 'd3';
 import Header from './header.js';
 
 
-export default class Beneficiaries extends Component {
-    constructor() {
+export default class SectionHeader extends Component {
+    constructor(id) {
         super({
             store,
-            element: d3.select("#beneficiaries"),
+            element: d3.select("#" +id),
         });
         this.local = { 
             format: d3.format(",." + d3.precisionFixed(1) + "f"),
@@ -20,13 +20,13 @@ export default class Beneficiaries extends Component {
      *
      * @returns {void}
      */
-    render(text) {
+    render(headertext,text) {
         let self = this;
         let div = self.element.append("div")
         let header = new Header(div)
-        header.render("Who Benefits?")
+        header.render(headertext)
         self.element.append("div")
-            .text("$100 million is a lot of money. Where is it going? Who has \"earned\" it?")
+            .text(text)
     }
    
     

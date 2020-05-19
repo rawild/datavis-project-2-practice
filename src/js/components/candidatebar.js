@@ -13,7 +13,7 @@ export default class CandidateBar extends Component {
         this.local = { 
             format: d3.format(",." + d3.precisionFixed(1) + "f"),
             paddingInner : 0.2,
-            margin : { top: 20, bottom: 20, left: 300, right:140 },
+            margin : { top: 20, bottom: 20, left: 200, right:140 },
         }
     }
 
@@ -36,7 +36,7 @@ export default class CandidateBar extends Component {
         let candidates = d3array.rollup(topCandidates,  
             v =>  d3.sum(v, d => d.Total), // reduce function,
             d => d.Candidate_ID)
-        console.log("candidates", candidates)
+  
         let most = d3array.greatest(candidates, ([,sum]) => sum)
         let topIds = [...candidates.keys()]
         let electeds = store.state.electeds.filter(d => topIds.includes(d.Elected_Id))
