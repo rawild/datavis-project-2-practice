@@ -2,6 +2,7 @@ import Component from '../lib/component.js';
 import store from '../store/index.js';
 import * as d3 from 'd3';
 import * as d3array from 'd3-array';
+import topCandidates from "../../data/top_money_candidate_filings.csv"
 
 export default class CandidateBar extends Component {
     constructor() {
@@ -29,10 +30,10 @@ export default class CandidateBar extends Component {
         let height = self.element.node().getBoundingClientRect().height-30
         /* Get the donor bar chart data*/ 
         self.element.append("div")
-            .attr("class","header-2")
+            .attr("class","header-2 chart-title")
             .text("Candidates who recieved more than $1,500,000")
 
-        let candidates = d3array.rollup(store.state.topCandidates,  
+        let candidates = d3array.rollup(topCandidates,  
             v =>  d3.sum(v, d => d.Total), // reduce function,
             d => d.Candidate_ID)
         console.log("candidates", candidates)

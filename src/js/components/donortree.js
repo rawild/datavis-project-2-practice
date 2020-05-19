@@ -34,13 +34,13 @@ export default class DonorTree extends Component {
             .attr("class","header-2 chart-title tree-title")
             .text("$"+ self.local.format(store.state.summary.total_money) +" from " + self.local.format(store.state.donors.length) + " Donors")
 
-        let donors = d3array.rollups(store.state.donors,  
+        let donors_rollup = d3array.rollups(store.state.donors,  
             v =>  ({Total: d3.sum(v, d => d.Total), donations:v}), // reduce function,
             d => d.Cluster_ID)
         
         
         let root = d3
-            .hierarchy([null, donors], ([key, values]) => values) // children accessor, tell it to grab the second element
+            .hierarchy([null, donors_rollup], ([key, values]) => values) // children accessor, tell it to grab the second element
             .sum(([key, values]) => values.Total) // sets the 'value' of each level
             .sort((a, b) => b.value - a.value);
         
@@ -84,42 +84,7 @@ export default class DonorTree extends Component {
                 if (d.value > 500) {
                     return "quartile-4 donortree"
                 }
-            })
-        /* 
-        leaf
-            .append("text")
-            .text(d => {
-                return (
-                    store.state.electeds.filter(x => x.Elected_Id == d.data[1].donations[0].Candidate_ID)[0].First_Name
-                    )
-                })
-            .attr("dy", "-1em")
-            .style("text-anchor", "middle")
-            .attr("font-family",  "Gill Sans", "Gill Sans MT")
-            .attr("font-size", "14")
-            .attr("fill", "white");
-        leaf
-            .append("text")
-            .text(d => {
-                return (
-                    store.state.electeds.filter(x => x.Elected_Id == d.data[1].donations[0].Candidate_ID)[0].Last_Name
-                    )
-                })
-            .style("text-anchor", "middle")
-            .attr("font-family",  "Gill Sans", "Gill Sans MT")
-            .attr("font-size", "14")
-            .attr("fill", "white");
-        leaf
-            .append("text")
-            .text(d => {
-                return "$" + self.local.format(d.data[1].Total)
-                })
-            .attr("dy", "1em")
-            .style("text-anchor", "middle")
-            .attr("font-family",  "Gill Sans", "Gill Sans MT")
-            .attr("font-size", "14")
-            .attr("fill", "white");*/
-            
+            })    
         }
 
         hide() {

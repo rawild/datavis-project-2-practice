@@ -27,5 +27,9 @@ export default {
         state.quartiles= payload;
         return state;
     },
+    setCandidateColors(state,payload){
+        state.candidateColors = payload;
+        return state;
+    }
 
 };

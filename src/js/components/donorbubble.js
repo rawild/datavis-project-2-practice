@@ -27,14 +27,14 @@ export default class DonorBubble extends Component {
         self.element.selectAll("*").remove()
         console.log("donorbubble rendering")
         let width = self.element.node().getBoundingClientRect().width
-        let height = self.element.node().getBoundingClientRect().height-30
+        let height = self.element.node().getBoundingClientRect().height-50
         let donorName = store.state.donorNames.filter(d=>d.Cluster_ID == self.local.donor)[0].Name
         let donations = store.state.topDonors.filter(d => d.Cluster_ID == self.local.donor)
 
         /* Get the donor bar chart data*/ 
         self.element.append("div")
-            .attr("class","header-2")
-            .text("Recipients of " + donorName)
+            .attr("class","header-2 chart-title")
+            .text("Recipients of " + donorName + " Money")
 
         let recipients = d3array.rollups(donations,  
             v =>  ({Total: d3.sum(v, d => d.Total), donations:v}), // reduce function,
@@ -75,17 +75,20 @@ export default class DonorBubble extends Component {
 
         leaf
             .append("circle")
-            .attr("fill-opacity", 0.6)
-            .attr("fill", d => colorScale(d.data[1].donations[0].Candidate_ID)) // take the genre from the first one in the group
+            .attr("fill-opacity", 0.9)
+            .attr("fill", d => store.state.candidateColors(d.data[1].donations[0].Candidate_ID)) // take the genre from the first one in the group
             .attr("r", d => d.r)
         leaf
             .append("text")
-            .text(d => {
+            .text(d => { 
+                if (d.r < 35) {
+                    return " "
+                }
                 return (
                     store.state.electeds.filter(x => x.Elected_Id == d.data[1].donations[0].Candidate_ID)[0].First_Name
                     )
                 })
-            .attr("dy", "-1em")
+            .attr("dy", "-1.1em")
             .style("text-anchor", "middle")
             .attr("font-family",  "Gill Sans", "Gill Sans MT")
             .attr("font-size", "14")
@@ -93,6 +96,9 @@ export default class DonorBubble extends Component {
         leaf
             .append("text")
             .text(d => {
+                if (d.r < 35) {
+                    return " "
+                }
                 return (
                     store.state.electeds.filter(x => x.Elected_Id == d.data[1].donations[0].Candidate_ID)[0].Last_Name
                     )
@@ -104,12 +110,16 @@ export default class DonorBubble extends Component {
         leaf
             .append("text")
             .text(d => {
+                if (d.r < 35) {
+                    return " "
+                }
                 return "$" + self.local.format(d.data[1].Total)
                 })
-            .attr("dy", "1em")
+            .attr("dy", "1.1em")
             .style("text-anchor", "middle")
             .attr("font-family",  "Gill Sans", "Gill Sans MT")
             .attr("font-size", "14")
+            .attr("font-weight", "bold")
             .attr("fill", "white");
             
         }

@@ -19,6 +19,9 @@ export default {
     },
     addQuartiles(context,payload){
         context.commit('addQuartiles', payload)
-    }
+    },
+    setCandidateColors(context,payload){
+        context.commit('setCandidateColors', payload)
+    },
     
 };

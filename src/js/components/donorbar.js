@@ -31,10 +31,9 @@ export default class DonorBar extends Component {
         self.element.append("div")
             .attr("class","header-2")
             .text("Donors who gave more than $500,000")
-
         let donors = d3array.rollup(store.state.topDonors,  
-            v =>  d3.sum(v, d => d.Total), // reduce function,
-            d => d.Cluster_ID)
+            v =>  d3.sum(v, d => d.Total),
+            d => parseInt(d.Cluster_ID))
         let most = d3array.greatest(donors, ([,sum]) => sum)
         donors = Array.from(donors)
         donors = donors.sort((a,b) => d3.descending(a[1],b[1]))
@@ -71,7 +70,9 @@ export default class DonorBar extends Component {
         bars
             .attr(
                 "transform",
-                d => `translate(${xScale(0)}, ${yScale(store.state.donorNames.filter( x => x.Cluster_ID == d[0])[0].Name)})`
+                d => {
+                    return `translate(${xScale(0)}, ${yScale(store.state.donorNames.filter( x => x.Cluster_ID == d[0])[0].Name)})`
+                }
             )
         bars
             .select("rect")

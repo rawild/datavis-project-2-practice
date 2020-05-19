@@ -1,10 +1,10 @@
 import Component from '../lib/component.js';
 import store from '../store/index.js';
 import * as d3 from 'd3';
-import * as d3array from 'd3-array';
+
 
 export default class CorruptNetwork extends Component {
-    constructor(donor) {
+    constructor() {
         super({
             store,
             element: d3.select("#corruption"),
@@ -13,7 +13,6 @@ export default class CorruptNetwork extends Component {
             format: d3.format(",." + d3.precisionFixed(1) + "f"),
             paddingInner : 0.2,
             margin : { top: 20, bottom: 20, left: 300, right:140 },
-            donor: donor,
         }
     }
 
